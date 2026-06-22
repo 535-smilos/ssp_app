@@ -1,17 +1,21 @@
 import express from "express";
 import cors from "cors";
 import mssql from "mssql";
+import dotenv from "dotenv";
+import bodyParser from "body-parser";
 
 const app=express();
-
+dotenv.config({
+    quiet:true
+});
 
 let db;
 try {
     db = await mssql.connect({
-        user: 'sa',
-        password: '1234',
-        server: 'DESKTOP-TOG38PK',
-        database: 'PB_Test',
+        user: process.env.DB_USER,
+        password: process.env.DB_PASS,
+        server: process.env.DB_SERVER,
+        database: process.env.DB_NAME,
         options: {
             trustServerCertificate: true
         }
